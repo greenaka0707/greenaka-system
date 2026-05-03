@@ -536,6 +536,11 @@ i[data-lucide] {
   width: 100%;
   border-collapse: collapse;
 }
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
 /* CELL */
 .table th,
