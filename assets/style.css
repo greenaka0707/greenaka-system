@@ -8,13 +8,18 @@
 html,
 body {
   height: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 /* ===== BODY ===== */
 body {
   background: #f1f5f9;
   font-weight: 400;
 }
-
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
 /* ===== TYPO ===== */
 h1,
 h2,
