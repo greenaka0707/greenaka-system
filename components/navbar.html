@@ -1,0 +1,21 @@
+<div class="navbar">
+  <!-- LEFT -->
+  <div class="nav-left">
+    <span class="greeting">Halo, Admin!</span>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="nav-right">
+    <i data-lucide="bell"></i>
+
+    <!-- AVATAR DROPDOWN -->
+    <div class="avatar-wrapper" onclick="toggleDropdown()">
+      <i data-lucide="user"></i>
+
+      <div id="dropdown-menu" class="dropdown-menu">
+        <div class="dropdown-item" onclick="handleProfile()">Profile</div>
+        <div class="dropdown-item" onclick="logout()">Logout</div>
+      </div>
+    </div>
+  </div>
+</div>

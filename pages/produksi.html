@@ -1,0 +1,31 @@
+<h2 class="page-title">Data Produksi</h2>
+
+<div class="page-content">
+  <div class="table-box">
+    <!-- ACTION -->
+    <div class="table-action">
+      <button class="btn-add btn-sm" onclick="route('form-produksi')">+ Tambah Produksi</button>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-responsive">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th style="width: 60px">No</th>
+            <th>No Produksi</th>
+            <th style="width: 150px">Tanggal</th>
+            <th style="width: 120px">Status</th>
+            <th style="width: 220px" class="text-center">Aksi</th>
+          </tr>
+        </thead>
+
+        <tbody id="produksi-body">
+          <tr>
+            <td colspan="5" class="text-center">Loading...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

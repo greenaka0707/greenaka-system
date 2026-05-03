@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Admin App</title>
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- STYLE -->
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+
+  <body>
+    <!-- ===== WRAPPER ===== -->
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside id="sidebar"></aside>
+      <div id="overlay" onclick="toggleMobileSidebar()"></div>
+      <div id="swipeZone"></div>
+
+      <!-- MAIN -->
+      <main class="main">
+        <!-- NAVBAR -->
+        <header id="navbar"></header>
+
+        <!-- CONTENT (SPA ROOT) -->
+        <section id="app"></section>
+      </main>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ===== GLOBAL MODAL ===== -->
+    <div id="modal-bayar" class="modal">
+      <div class="modal-content">
+        <h3>Pembayaran</h3>
+
+        <input type="number" id="input-jumlah" placeholder="Masukkan nominal" />
+
+        <div class="modal-actions">
+          <button onclick="submitBayar()">Simpan</button>
+          <button onclick="closeModalBayar()">Batal</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCRIPT (PALING BAWAH) ===== -->
+    <script src="assets/app.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </body>
+</html>

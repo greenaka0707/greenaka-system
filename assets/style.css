@@ -1,0 +1,1433 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+}
+html,
+body {
+  height: 100%;
+}
+/* ===== BODY ===== */
+body {
+  background: #f1f5f9;
+  font-weight: 400;
+}
+
+/* ===== TYPO ===== */
+h1,
+h2,
+h3 {
+  font-weight: 600;
+}
+
+/* ===== LAYOUT ===== */
+.layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  table-layout: fixed;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%; /* 🔥 ini kunci */
+  overflow-x: hidden; /* 🔥 stop geser */
+}
+
+/* ===== ICON ===== */
+i[data-lucide] {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===================================================== */
+/* ==================== SIDEBAR ========================= */
+/* ===================================================== */
+
+#sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: #022c22;
+  color: white;
+  transition: 0.3s;
+  overflow: hidden;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+/* WRAPPER */
+.sidebar {
+  padding: 12px;
+}
+
+/* TOP */
+.sidebar-top {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* LOGO */
+.logo-full {
+  width: 95px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===================================================== */
+/* ====================== MENU ========================== */
+/* ===================================================== */
+
+.sidebar-menu {
+  list-style: none;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* BASE ITEM (dipakai semua) */
+.sidebar-menu li,
+.menu-parent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px 12px 22px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #94a3b8;
+  transition: all 0.2s ease;
+}
+
+/* ICON */
+.sidebar-menu svg,
+.menu-parent svg {
+  width: 16px;
+  height: 16px;
+  color: #94a3b8;
+}
+
+/* TEXT */
+.menu-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* HOVER */
+.sidebar-menu li:hover,
+.menu-parent:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  transform: translateX(2px);
+}
+.link-ref {
+  color: #16a34a;
+  cursor: pointer;
+  font-weight: 500;
+}
+.link-ref:hover {
+  text-decoration: underline;
+}
+/* ===================================================== */
+/* ===================== ACTIVE ========================= */
+/* ===================================================== */
+
+.menu-parent.active-parent {
+  color: #22c55e;
+}
+
+.menu-parent.active-parent svg {
+  color: #22c55e;
+}
+
+.sidebar-menu li.active {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  position: relative;
+  transition: all 0.2s ease;
+  transform: scale(0.98);
+}
+
+.sidebar-menu li.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: #22c55e;
+  border-radius: 2px;
+}
+
+.sidebar-menu li.active svg {
+  color: #22c55e;
+}
+
+/* ===================================================== */
+/* =================== MENU PARENT ====================== */
+/* ===================================================== */
+
+.menu-parent {
+  justify-content: space-between;
+}
+
+.menu-parent .menu-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ARROW */
+.menu-parent .arrow {
+  width: 16px;
+  height: 16px;
+  transition: 0.2s;
+}
+
+.menu-parent.open .arrow {
+  transform: rotate(180deg);
+}
+
+/* ===================================================== */
+/* ===================== SUBMENU ======================== */
+/* ===================================================== */
+
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  padding-left: 44px;
+}
+
+.submenu li {
+  padding: 8px 0;
+}
+
+.submenu li.active {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+  border-radius: 8px;
+  padding-left: 12px;
+}
+
+.submenu li.active svg {
+  color: #22c55e;
+}
+
+.submenu.show {
+  max-height: 300px; /* cukup untuk beberapa item */
+}
+
+/* ===================================================== */
+/* ==================== COLLAPSE ======================== */
+/* ===================================================== */
+
+#sidebar.collapsed {
+  width: 80px;
+}
+
+#sidebar.collapsed .menu-text,
+#sidebar.collapsed .logo-full {
+  display: none;
+}
+
+#sidebar.collapsed .sidebar-menu li {
+  justify-content: center;
+}
+
+#sidebar.collapsed .sidebar-top {
+  justify-content: center;
+}
+
+/* ===================================================== */
+/* ====================== MINI ========================== */
+/* ===================================================== */
+
+#sidebar.mini {
+  width: 70px;
+}
+#sidebar.mini .sidebar-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+}
+
+#sidebar.mini .sidebar-menu li,
+#sidebar.mini .menu-parent {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+#sidebar.mini .menu-text,
+#sidebar.mini .menu-parent .arrow {
+  display: none;
+}
+
+#sidebar.mini svg {
+  margin: 0 auto;
+}
+/* ===================================================== */
+/* ===================== NAVBAR ========================= */
+/* ===================================================== */
+
+/* NAVBAR PALING ATAS */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1100; /* ⬆ dinaikin */
+  height: 60px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+/* AVATAR */
+.avatar-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+/* DROPDOWN */
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 150px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  display: none;
+  overflow: hidden;
+  z-index: 100;
+}
+.dropdown-menu.show {
+  display: block;
+}
+/* opsional: biar lebih “app feel” */
+.navbar.scrolled {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+/* LEFT */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* GREETING */
+.greeting {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* RIGHT */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-right svg {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* ===================================================== */
+/* ===================== BUTTON FIX ===================== */
+/* ===================================================== */
+
+/* ❗ replace global button style */
+.btn {
+  padding: 10px;
+  background: #0f172a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* toggle clean */
+.toggle-btn,
+.mobile-toggle,
+.desktop-toggle {
+  padding: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  color: #94a3b8; /* abu soft */
+}
+
+.toggle-btn:hover,
+.mobile-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* ===================================================== */
+/* ===================== CONTENT ======================== */
+/* ===================================================== */
+
+#app {
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TITLE */
+.page-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+/* ===================== TOMBOL TAMBAH PENJUALAN ========================== */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+/* INI KUNCI */
+.page-header .btn-primary {
+  width: fit-content !important;
+  height: 36px;
+  padding: 0 14px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+/* ===================================================== */
+/* ===================== CARDS ========================== */
+/* ===================================================== */
+
+/* 🔥 UPGRADE RESPONSIVE AUTO */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+/* FORCE LEFT ALIGN */
+.card-info {
+  text-align: left;
+}
+/* TOP */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  flex: 1;
+  margin-bottom: 0;
+}
+/* ICON */
+.card-icon {
+  width: 38px;
+  height: 38px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-icon svg {
+  width: 20px;
+  height: 20px;
+  color: #10b981;
+}
+/* TEXT */
+.card-title {
+  font-size: 12px;
+  color: #6b7280;
+}
+.card-value {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* BOTTOM */
+.card-bottom {
+  margin: 0;
+  border-top: 1px solid #f1f5f9; /* optional biar ada garis tipis */
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #f9fafb;
+  font-size: 12px;
+  padding: 8px 16px;
+}
+.card-growth.up {
+  color: #16a34a;
+}
+
+.card-growth.down {
+  color: #dc2626;
+}
+
+.card-period {
+  color: #6b7280;
+}
+.card:hover {
+  transform: translateY(-2px);
+}
+.card.red {
+  border-left: 4px solid #ef4444;
+}
+/* ===================================================== */
+/* ===================== TOAST ========================== */
+/* ===================================================== */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #16a34a;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.error {
+  background: #ef4444;
+}
+/* ===================================================== */
+/* ===================== TABLE ========================== */
+/* ===================================================== */
+
+/* TABLE */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* CELL */
+.table th,
+.table td {
+  padding: 10px 8px;
+  font-size: 13px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* HEADER */
+.table th {
+  font-size: 12px;
+  background: #f9fafb;
+}
+
+/* ROW */
+.table tbody tr {
+  border-top: 1px solid #eee;
+}
+
+/* TRANSAKSI CELL */
+.cell-main {
+  font-weight: 600;
+}
+
+.cell-sub {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+/* TOTAL */
+.table td:nth-child(3) {
+  font-weight: 600;
+}
+
+/* ACTION */
+.table-action {
+  display: flex;
+  gap: 6px;
+}
+
+.table-action svg {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+/* BADGE */
+.badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.badge-success {
+  background: #e6f9f0;
+  color: #0f9d58;
+}
+
+.badge.warning {
+  background: #fef3c7;
+  color: #d97706;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+/* ===================================================== */
+/* ===================== FORM =========================== */
+/* ===================================================== */
+
+/* DROPDOWN CUSTOMER */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-top: 4px;
+  z-index: 9999; /* 🔥 penting */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.page-wrapper {
+  width: 100%;
+}
+
+.dropdown-item:hover {
+  background: #f1f5f9;
+}
+
+.page-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding-bottom: 40px;
+  width: 100%;
+}
+
+/* ❌ HAPUS 2 KOLOM (INI BIANG MASALAH MOBILE) */
+/*.form-layout {
+  display: block;
+}
+
+/* CONTAINER */
+.form-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* GRID HEADER */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* ⬅ INI WAJIB */
+  gap: 16px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  font-size: 12px;
+  margin-bottom: 6px;
+  color: #374151;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.dp-toggle {
+  margin-top: 6px;
+  background: none;
+  border: none;
+  color: #16a34a;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+}
+
+.dp-toggle:hover {
+  text-decoration: underline;
+}
+.dp-hint {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  resize: vertical;
+}
+/* ===================================================== */
+/* ===================== ITEM =========================== */
+/* ===================================================== */
+
+.item-box {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.item-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.item-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-field label {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+/* SIZE CONTROL */
+.item-field.produk {
+  flex: 1;
+}
+
+.item-field.qty {
+  width: 90px;
+}
+
+.item-field.satuan {
+  width: 100px;
+}
+
+.item-field.harga {
+  width: 120px;
+}
+
+/* INPUT ITEM */
+.item-field input,
+.item-field select {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+/* ===================================================== */
+/* ===================== CART =========================== */
+/* ===================================================== */
+
+/* ================= CART APP STYLE ================= */
+
+/* ITEM CARD */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9fafb;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: 0.2s;
+}
+
+.cart-item:hover {
+  background: #f3f4f6;
+}
+
+/* LEFT SIDE */
+.cart-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cart-sub {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* RIGHT SIDE */
+.cart-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-price {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* DELETE BUTTON */
+.cart-delete {
+  border: none;
+  background: #ef4444;
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.cart-delete:hover {
+  background: #dc2626;
+}
+/* EDIT */
+.cart-edit {
+  border: none;
+  background: #e5e7eb;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.cart-edit:hover {
+  background: #d1d5db;
+}
+
+/* TOTAL SECTION */
+.summary-total {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+/* ===================================================== */
+/* ===================== MODAL ========================== */
+/* ===================================================== */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+/* SHOW MODAL (CENTER FIX) */
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* OVERLAY */
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* CARD */
+.modal-card {
+  position: relative;
+  z-index: 2;
+  background: white;
+  width: 420px;
+  max-width: 90%;
+  border-radius: 16px;
+  padding: 16px;
+  animation: modalFade 0.2s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ANIMATION (optional tapi enak) */
+@keyframes modalFade {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==== GRID MODAL ==== */
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  opacity: 0.6;
+}
+.modal-body .form-group {
+  margin-bottom: 12px;
+}
+.modal-footer .btn-primary {
+  width: 100%;
+  height: 44px;
+  font-weight: 600;
+}
+/* ===================================================== */
+/* ===================== BUTTON ========================= */
+/* ===================================================== */
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+/* BUTTON BASE */
+.btn-secondary {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #e5e7eb;
+  color: #111;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+}
+
+/* BUTTON DELETE */
+.btn-danger {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+.btn-add {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+/* 🔥 ukuran normal */
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+/* ===================================================== */
+/* ===================== SUMMARY ======================== */
+/* ===================================================== */
+
+.summary-box {
+  margin-top: 16px;
+  padding: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+#swipeZone {
+  display: none;
+}
+/* ===================================================== */
+/* ===================== MOBILE FIX ===================== */
+/* ===================================================== */
+
+.mobile-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* area sensitif swipe dari tepi kiri */
+  #swipeZone {
+    position: fixed;
+    top: 60px; /* di bawah navbar kamu */
+    left: 0;
+    width: 18px; /* tipis, biar tidak ganggu scroll */
+    height: calc(100% - 60px);
+    z-index: 1100;
+    display: block;
+  }
+  /* ================= HEADER ================= */
+
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .page-header .btn-primary {
+    width: auto !important;
+    height: 32px;
+    padding: 0 10px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+  /* ================= NAVBAR ================= */
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  #app {
+    padding-top: 60px;
+  }
+
+  /* ================= SIDEBAR ================= */
+
+  #sidebar {
+    position: fixed;
+    left: -260px;
+    top: 60px;
+    height: calc(100% - 60px);
+    z-index: 1000;
+    transition: 0.3s;
+  }
+
+  #sidebar.show {
+    left: 0;
+  }
+
+  .desktop-toggle {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: flex;
+  }
+
+  /* ================= OVERLAY ================= */
+
+  #overlay {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    display: none;
+    z-index: 900;
+  }
+
+  #overlay.show {
+    display: block;
+  }
+
+  /* ================= LAYOUT ================= */
+
+  .cards {
+    gap: 12px;
+  }
+
+  /* ================= FORM ================= */
+
+  .form-box {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .form-box .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-box .form-grid > * {
+    grid-column: span 1 !important;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  /* ================= INPUT ================= */
+
+  input,
+  select {
+    font-size: 16px;
+  }
+
+  /* ================= ITEM ================= */
+
+  .item-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .item-field {
+    width: 100% !important;
+  }
+
+  /* ================= MODAL ================= */
+
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ================= BUTTON ================= */
+
+  .btn-add {
+    height: 44px;
+    font-weight: 500;
+  }
+
+  .btn-primary {
+    height: 46px;
+    font-weight: 600;
+  }
+
+  /* ================= SUMMARY ================= */
+
+  .summary-box {
+    margin-top: 20px;
+    padding-top: 14px;
+  }
+
+  .summary-total {
+    margin-top: 14px;
+    padding-top: 12px;
+  }
+
+  /* ================= CART ================= */
+
+  .cart-item {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .cart-title {
+    font-size: 15px;
+  }
+
+  .cart-sub {
+    font-size: 13px;
+  }
+
+  .cart-price {
+    font-size: 15px;
+  }
+
+  .cart-delete,
+  .cart-edit {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.table-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.table-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table thead {
+  background: #f5f6f8;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px;
+  font-size: 14px;
+}
+
+.custom-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.custom-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+.dropdown-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background: #f3f3f3;
+}
+
+/* ================= INVOICE DESIGN ================= */
+.invoice-wrapper {
+  background: #e5e7eb;
+  padding: 30px;
+}
+
+.invoice-wrapper .invoice-box {
+  width: 850px;
+  margin: auto;
+  background: #fff;
+  padding: 30px 40px;
+  font-family: Arial;
+}
+
+/* HEADER */
+.invoice-wrapper .inv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.invoice-wrapper .inv-title h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+/* ADDRESS */
+.invoice-wrapper .inv-address {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  background: #f3f4f6;
+  padding: 15px;
+  font-size: 13px;
+}
+
+/* META */
+.invoice-wrapper .inv-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+/* TABLE */
+.invoice-wrapper .inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.invoice-wrapper .inv-table th {
+  border-bottom: 2px solid #000;
+  text-align: left;
+  padding: 8px;
+}
+
+.invoice-wrapper .inv-table td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+}
+
+/* SUMMARY */
+.invoice-wrapper .inv-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.invoice-wrapper .inv-total-left h2 {
+  margin: 5px 0;
+}
+
+.invoice-wrapper .inv-total-right {
+  text-align: right;
+  font-size: 13px;
+}
+
+/* FOOTER */
+.invoice-wrapper .inv-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  font-size: 12px;
+}
+
+/* LAYOUT */
+.login-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* LEFT */
+.login-left {
+  flex: 1;
+  background: linear-gradient(135deg, #0f5132, #198754);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-left img {
+  width: 70%;
+  max-width: 400px;
+}
+
+/* RIGHT */
+.login-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+}
+
+/* BOX */
+.login-box {
+  width: 100%;
+  max-width: 320px;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+}
+
+/* INPUT */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-size: 13px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+/* BUTTON */
+.btn-login {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  background: #198754;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background: #157347;
+}

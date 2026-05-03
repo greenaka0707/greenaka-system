@@ -1,0 +1,35 @@
+<h2 class="page-title">Data Pengeluaran</h2>
+
+<div class="page-content">
+  <div class="table-box">
+    ```
+    <!-- ACTION -->
+    <div class="table-action">
+      <button class="btn-add btn-sm" onclick="route('form-pengeluaran')">+ Tambah Pengeluaran</button>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-responsive">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th style="width: 60px">No</th>
+            <th style="width: 140px">Tanggal</th>
+            <th style="width: 160px">Dibayar Oleh</th>
+            <th>Keterangan</th>
+            <th style="width: 120px">Metode</th>
+            <th style="width: 150px" class="text-right">Jumlah</th>
+            <th style="width: 100px" class="text-center">Aksi</th>
+          </tr>
+        </thead>
+
+        <tbody id="pengeluaran-body">
+          <tr>
+            <td colspan="7" class="text-center">Loading...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    ```
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<h2 class="page-title">Arus Kas</h2>
+
+<div class="page-content">
+  <div class="table-box">
+    <!-- FILTER -->
+    <div class="table-action" style="margin-bottom: 10px">
+      <input type="date" id="filter-start" />
+      <input type="date" id="filter-end" />
+      <button class="btn-primary btn-sm" onclick="loadArusKas()">Filter</button>
+    </div>
+
+    <!-- TABLE -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Referensi</th>
+          <th>Keterangan</th>
+          <th>Metode</th>
+          <th class="text-right">Masuk</th>
+          <th class="text-right">Keluar</th>
+          <th class="text-right">Saldo</th>
+        </tr>
+      </thead>
+
+      <tbody id="arus-kas-body">
+        <tr>
+          <td colspan="8" class="text-center">Loading...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

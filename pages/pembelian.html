@@ -1,0 +1,46 @@
+<div class="page-wrapper">
+  <div class="page-header">
+    <h2 class="page-title">Pembelian</h2>
+
+    <button class="btn-primary" onclick="route('form-pembelian')">+ Tambah Pembelian</button>
+  </div>
+
+  <div class="card">
+    <div class="page-content">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 120px">Tanggal</th>
+            <th>Transaksi</th>
+            <th style="width: 140px">Total</th>
+            <th style="width: 120px">Pembayaran</th>
+            <th style="width: 120px">Aksi</th>
+          </tr>
+        </thead>
+
+        <tbody id="table-pembelian-body">
+          <tr>
+            <td colspan="5" style="text-align: center; padding: 20px">Memuat data...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL DELETE ================= -->
+<div id="deleteModal" class="modal">
+  <div class="modal-overlay" onclick="closeDeleteModal()"></div>
+
+  <div class="modal-card" style="max-width: 320px; padding: 20px">
+    <div style="text-align: center; margin-bottom: 15px">
+      <h3 style="margin-bottom: 8px">Konfirmasi</h3>
+      <p style="color: #6b7280; font-size: 14px">Hapus transaksi pembelian ini?</p>
+    </div>
+
+    <div style="display: flex; gap: 10px">
+      <button class="btn-secondary" onclick="closeDeleteModal()">Batal</button>
+      <button class="btn-danger" onclick="confirmDeletePembelian()">Hapus</button>
+    </div>
+  </div>
+</div>

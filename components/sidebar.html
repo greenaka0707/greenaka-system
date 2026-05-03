@@ -1,0 +1,314 @@
+<div class="sidebar">
+  <!-- TOP -->
+  <div class="sidebar-top">
+    <div class="logo-wrap">
+      <img src="assets/logo-greenaka.svg" class="logo-full" />
+    </div>
+
+    <button class="desktop-toggle" onclick="toggleSidebar()">
+      <i data-lucide="chart-no-axes-gantt"></i>
+    </button>
+  </div>
+
+  <!-- MENU -->
+  <ul class="sidebar-menu">
+    <!-- DASHBOARD -->
+    <li
+      onclick="
+        route('dashboard');
+        closeMobileSidebar();
+      "
+      data-page="dashboard"
+    >
+      <i data-lucide="home"></i>
+      <span class="menu-text">Dashboard</span>
+    </li>
+
+    <!-- LAPORAN -->
+    <li class="menu-parent" onclick="toggleSubmenu('laporan-menu', this)">
+      <div class="menu-left">
+        <i data-lucide="file-bar-chart"></i>
+        <span class="menu-text">Laporan</span>
+      </div>
+      <i data-lucide="chevron-down" class="arrow"></i>
+    </li>
+
+    <ul class="submenu" id="laporan-menu">
+      <li
+        onclick="
+          route('persediaan');
+          closeMobileSidebar();
+        "
+        data-page="persediaan"
+      >
+        <i data-lucide="database"></i>
+        <span class="menu-text">Persediaan</span>
+      </li>
+
+      <li
+        onclick="
+          route('analisa-margin');
+          closeMobileSidebar();
+        "
+        data-page="analisa-margin"
+      >
+        <i data-lucide="trending-up"></i>
+        <span class="menu-text">Analisa Margin</span>
+      </li>
+
+      <li
+        onclick="
+          route('hutang');
+          closeMobileSidebar();
+        "
+        data-page="hutang"
+      >
+        <i data-lucide="credit-card"></i>
+        <span class="menu-text">Hutang</span>
+      </li>
+
+      <li
+        onclick="
+          route('piutang');
+          closeMobileSidebar();
+        "
+        data-page="piutang"
+      >
+        <i data-lucide="wallet"></i>
+        <span class="menu-text">Piutang</span>
+      </li>
+    </ul>
+
+    <!-- PENJUALAN -->
+    <li
+      onclick="
+        route('penjualan');
+        closeMobileSidebar();
+      "
+      data-page="penjualan"
+    >
+      <i data-lucide="bar-chart-3"></i>
+      <span class="menu-text">Penjualan</span>
+    </li>
+
+    <!-- PRODUKSI -->
+    <li
+      onclick="
+        route('produksi');
+        closeMobileSidebar();
+      "
+      data-page="produksi"
+    >
+      <i data-lucide="factory"></i>
+      <span class="menu-text">Produksi</span>
+    </li>
+
+    <!-- PEMBELIAN -->
+    <li
+      onclick="
+        route('pembelian');
+        closeMobileSidebar();
+      "
+      data-page="pembelian"
+    >
+      <i data-lucide="shopping-cart"></i>
+      <span class="menu-text">Pembelian</span>
+    </li>
+
+    <!-- PENGELUARAN -->
+    <li class="menu-parent" onclick="toggleSubmenu('pengeluaran-menu', this)">
+      <div class="menu-left">
+        <i data-lucide="arrow-down-circle"></i>
+        <span class="menu-text">Pengeluaran</span>
+      </div>
+      <i data-lucide="chevron-down" class="arrow"></i>
+    </li>
+
+    <ul class="submenu" id="pengeluaran-menu">
+      <li
+        onclick="
+          route('pengeluaran');
+          closeMobileSidebar();
+        "
+        data-page="pengeluaran"
+      >
+        <i data-lucide="credit-card"></i>
+        <span class="menu-text">Data Pengeluaran</span>
+      </li>
+
+      <li
+        onclick="
+          route('talangan');
+          closeMobileSidebar();
+        "
+        data-page="talangan"
+      >
+        <i data-lucide="users"></i>
+        <span class="menu-text">Hutang Karyawan</span>
+      </li>
+    </ul>
+
+    <!-- STOK -->
+    <li class="menu-parent" onclick="toggleSubmenu('stok-menu', this)">
+      <div class="menu-left">
+        <i data-lucide="package"></i>
+        <span class="menu-text">Stok</span>
+      </div>
+      <i data-lucide="chevron-down" class="arrow"></i>
+    </li>
+
+    <ul class="submenu" id="stok-menu">
+      <li
+        onclick="
+          route('lihat-stok');
+          closeMobileSidebar();
+        "
+        data-page="lihat-stok"
+      >
+        <i data-lucide="layers"></i>
+        <span class="menu-text">Lihat Stok</span>
+      </li>
+
+      <li
+        onclick="
+          route('analisa-stok');
+          closeMobileSidebar();
+        "
+        data-page="analisa-stok"
+      >
+        <i data-lucide="bar-chart-3"></i>
+        <span class="menu-text">Analisa Stok</span>
+      </li>
+
+      <li
+        onclick="
+          route('penyesuaian-stok');
+          closeMobileSidebar();
+        "
+        data-page="penyesuaian-stok"
+      >
+        <i data-lucide="refresh-ccw"></i>
+        <span class="menu-text">Penyesuaian Stok</span>
+      </li>
+
+      <li
+        onclick="
+          route('arus-stok');
+          closeMobileSidebar();
+        "
+        data-page="arus-stok"
+      >
+        <i data-lucide="activity"></i>
+        <span class="menu-text">Arus Stok</span>
+      </li>
+
+      <li
+        onclick="
+          route('kartu-stok');
+          closeMobileSidebar();
+        "
+        data-page="kartu-stok"
+      >
+        <i data-lucide="clipboard-list"></i>
+        <span class="menu-text">Kartu Stok</span>
+      </li>
+    </ul>
+    <!-- KAS / BANK (BARU) -->
+    <li class="menu-parent" onclick="toggleSubmenu('kas-menu', this)">
+      <div class="menu-left">
+        <i data-lucide="wallet"></i>
+        <span class="menu-text">Kas / Bank</span>
+      </div>
+      <i data-lucide="chevron-down" class="arrow"></i>
+    </li>
+
+    <ul class="submenu" id="kas-menu">
+      <li
+        onclick="
+          route('pembayaran');
+          closeMobileSidebar();
+        "
+        data-page="pembayaran"
+      >
+        <i data-lucide="repeat"></i>
+        <span class="menu-text">Arus Pembayaran</span>
+      </li>
+
+      <li
+        onclick="
+          route('arus-kas');
+          closeMobileSidebar();
+        "
+        data-page="arus-kas"
+      >
+        <i data-lucide="activity"></i>
+        <span class="menu-text">Arus Kas</span>
+      </li>
+
+      <li
+        onclick="
+          route('kas');
+          closeMobileSidebar();
+        "
+        data-page="kas"
+      >
+        <i data-lucide="circle-dollar-sign"></i>
+        <span class="menu-text">Lihat Kas</span>
+      </li>
+    </ul>
+    <!-- MASTER -->
+    <li class="menu-parent" onclick="toggleSubmenu('master-menu', this)">
+      <div class="menu-left">
+        <i data-lucide="database"></i>
+        <span class="menu-text">Master</span>
+      </div>
+      <i data-lucide="chevron-down" class="arrow"></i>
+    </li>
+
+    <ul class="submenu" id="master-menu">
+      <li
+        onclick="
+          route('master-produk');
+          closeMobileSidebar();
+        "
+        data-page="master-produk"
+      >
+        <i data-lucide="box"></i>
+        <span class="menu-text">Produk</span>
+      </li>
+
+      <li
+        onclick="
+          route('master-customer');
+          closeMobileSidebar();
+        "
+        data-page="master-customer"
+      >
+        <i data-lucide="users"></i>
+        <span class="menu-text">Customer</span>
+      </li>
+
+      <li
+        onclick="
+          route('master-sales');
+          closeMobileSidebar();
+        "
+        data-page="master-sales"
+      >
+        <i data-lucide="user"></i>
+        <span class="menu-text">Sales</span>
+      </li>
+
+      <li
+        onclick="
+          route('master-supplier');
+          closeMobileSidebar();
+        "
+        data-page="master-supplier"
+      >
+        <i data-lucide="truck"></i>
+        <span class="menu-text">Supplier</span>
+      </li>
+    </ul>
+  </ul>
+</div>

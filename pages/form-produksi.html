@@ -1,0 +1,110 @@
+<h2 class="page-title">Form Produksi</h2>
+
+<div class="page-content">
+  <div class="form-box">
+    <!-- ================= HEADER ================= -->
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Tanggal</label>
+        <input type="date" id="tanggal" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label>PIC (Sales)</label>
+        <select id="sales_id" class="form-control">
+          <option value="">-- Pilih PIC --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Jasa / Supplier</label>
+        <select id="supplier_id" class="form-control">
+          <option value="">-- Internal (tanpa jasa) --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>No Produksi</label>
+        <input type="text" id="no_produksi" class="form-control" readonly />
+      </div>
+    </div>
+
+    <!-- ================= ACTION ================= -->
+    <div class="form-action">
+      <button class="btn-add" onclick="openModalBahan()">+ Tambah Bahan</button>
+    </div>
+
+    <!-- ================= BIAYA JASA ================= -->
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Biaya Jasa (Rp)</label>
+        <input type="number" id="biaya_jasa" class="form-control" value="0" />
+      </div>
+
+      <!-- 🔥 TAMBAHAN PENTING -->
+      <div class="form-group">
+        <label>Pembayaran Jasa</label>
+        <select id="pembayaran_jasa">
+          <option value="cash">Cash</option>
+          <option value="kredit">Kredit</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ================= CART BAHAN ================= -->
+    <div id="bahan-list" class="cart-list"></div>
+
+    <!-- ================= SUMMARY ================= -->
+    <div class="summary-box bottom">
+      <h4>Ringkasan</h4>
+
+      <div class="summary-total">
+        <span>Total Bahan</span>
+        <span id="sum-bahan">0 kg</span>
+      </div>
+
+      <div class="summary-total">
+        <span>Estimasi Hasil (20%)</span>
+        <span id="sum-estimasi">0 kg</span>
+      </div>
+
+      <!-- 🔥 TAMBAHAN BIAR LEBIH JELAS -->
+      <div class="summary-total">
+        <span>Biaya Jasa</span>
+        <span id="sum-jasa">Rp 0</span>
+      </div>
+    </div>
+
+    <!-- ================= SUBMIT ================= -->
+    <button class="btn-primary" onclick="saveProduksi()">Simpan Produksi</button>
+  </div>
+</div>
+
+<!-- ================= MODAL BAHAN ================= -->
+<div id="modal-bahan" class="modal">
+  <div class="modal-overlay" onclick="closeModalBahan()"></div>
+
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>Tambah Bahan</h3>
+      <i data-lucide="x" class="modal-close" onclick="closeModalBahan()"></i>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Produk</label>
+        <input type="text" id="bahan-nama" placeholder="Cari produk..." />
+        <input type="hidden" id="bahan-id" />
+      </div>
+
+      <div class="form-group">
+        <label>Qty (kg)</label>
+        <input type="number" id="bahan-qty" value="1" />
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-primary" onclick="addBahan()">Tambah</button>
+    </div>
+  </div>
+</div>

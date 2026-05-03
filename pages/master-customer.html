@@ -1,0 +1,68 @@
+<div class="page-header">
+  <h2 class="page-title">Master Customer</h2>
+  <button class="btn-primary" onclick="openCustomerModal()">+ Tambah</button>
+</div>
+
+<div class="page-content">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Telp</th>
+        <th>Alamat</th>
+        <th style="width: 120px">Aksi</th>
+      </tr>
+    </thead>
+
+    <tbody id="table-customer">
+      <tr>
+        <td colspan="4" style="text-align: center">Memuat data...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================= CUSTOMER MODAL ================= -->
+<div id="customerModal" class="modal">
+  <div class="modal-overlay" onclick="closeCustomerModal()"></div>
+
+  <div class="modal-card">
+    <h3>Customer</h3>
+
+    <div class="form-group">
+      <label>Nama</label>
+      <input type="text" id="cust_nama" />
+    </div>
+
+    <div class="form-group">
+      <label>Telp</label>
+      <input type="text" id="cust_telp" />
+    </div>
+
+    <div class="form-group">
+      <label>Alamat</label>
+      <textarea id="cust_alamat"></textarea>
+    </div>
+
+    <!-- 🔥 BUTTON FIX -->
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeCustomerModal()">Batal</button>
+      <button class="btn-primary" onclick="saveCustomer()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DELETE MODAL ================= -->
+<div id="deleteModal" class="modal">
+  <div class="modal-overlay" onclick="closeDeleteModal()"></div>
+
+  <div class="modal-card" style="max-width: 320px">
+    <h3 style="text-align: center">Konfirmasi</h3>
+    <p style="text-align: center">Hapus data ini?</p>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeDeleteModal()">Batal</button>
+      <button class="btn-danger" onclick="confirmDeleteCustomer()">Hapus</button>
+    </div>
+  </div>
+</div>

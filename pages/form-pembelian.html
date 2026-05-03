@@ -1,0 +1,128 @@
+<h2 class="page-title">Form Pembelian</h2>
+
+<div class="page-content">
+  <div class="form-box">
+    <!-- ================= HEADER ================= -->
+    <div class="form-grid">
+      <!-- SUPPLIER -->
+      <div class="form-group" style="position: relative">
+        <label>Supplier</label>
+        <input type="text" id="supplier" placeholder="Cari supplier..." oninput="searchSupplier(this.value)" autocomplete="off" />
+        <div id="supplier-dropdown" class="dropdown"></div>
+      </div>
+
+      <!-- TELP -->
+      <div class="form-group">
+        <label>No Telp</label>
+        <input type="text" id="telp" />
+      </div>
+
+      <!-- ALAMAT -->
+      <div class="form-group" style="grid-column: span 2">
+        <label>Alamat Supplier</label>
+        <textarea id="alamat"></textarea>
+      </div>
+
+      <!-- TANGGAL -->
+      <div class="form-group">
+        <label>Tanggal</label>
+        <input type="date" id="tanggal" />
+      </div>
+
+      <!-- PEMBAYARAN -->
+      <div class="form-group">
+        <label>Pembayaran</label>
+        <select id="pembayaran">
+          <option value="cash">Cash</option>
+          <option value="kredit">Kredit</option>
+        </select>
+      </div>
+
+      <!-- DP -->
+      <div class="form-group">
+        <label>DP</label>
+        <input type="number" id="dp" value="0" min="0" />
+      </div>
+
+      <!-- NO PO (AUTO DATABASE) -->
+      <div class="form-group">
+        <label>No PO</label>
+        <input type="text" id="po" placeholder="Auto generate" readonly />
+      </div>
+    </div>
+
+    <!-- ================= ACTION ================= -->
+    <div class="form-action">
+      <button class="btn-add" onclick="openModal()">+ Tambah Item</button>
+    </div>
+
+    <!-- ================= MODAL PRODUK ================= -->
+    <div id="modal" class="modal">
+      <div class="modal-overlay" onclick="closeModal()"></div>
+
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Tambah Produk</h3>
+          <i data-lucide="x" class="modal-close" onclick="closeModal()"></i>
+        </div>
+
+        <div class="modal-body">
+          <!-- PRODUK -->
+          <div class="form-group" style="position: relative">
+            <label>Produk</label>
+            <input type="text" id="produk" placeholder="Cari produk..." oninput="searchProduk(this.value)" autocomplete="off" />
+            <div id="produk-dropdown" class="dropdown"></div>
+          </div>
+
+          <!-- GRID -->
+          <div class="modal-grid">
+            <!-- QTY -->
+            <div class="form-group">
+              <label>Qty</label>
+              <input type="number" id="qty" value="1" min="1" />
+            </div>
+
+            <!-- SATUAN -->
+            <div class="form-group">
+              <label>Satuan</label>
+              <select id="satuan">
+                <option value="Pcs">Pcs</option>
+                <option value="Kg">Kg</option>
+              </select>
+            </div>
+
+            <!-- HARGA -->
+            <div class="form-group">
+              <label>Harga Beli</label>
+              <input type="number" id="harga" value="0" min="0" />
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-primary" onclick="addToCart()">Tambah</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= CART ================= -->
+    <div class="summary-box bottom">
+      <h4>Ringkasan</h4>
+
+      <div id="cart-list" class="cart-list"></div>
+
+      <div class="summary-total">
+        <span>Total</span>
+        <span id="sum-total">Rp 0</span>
+      </div>
+
+      <div class="summary-total" id="group-sisa" style="display: none">
+        <span>Sisa</span>
+        <span id="sum-sisa">Rp 0</span>
+      </div>
+    </div>
+
+    <!-- ================= SUBMIT ================= -->
+    <button class="btn-primary" onclick="savePembelian()">Simpan</button>
+  </div>
+</div>

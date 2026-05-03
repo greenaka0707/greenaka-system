@@ -1,0 +1,73 @@
+<div class="page-header">
+  <h2 class="page-title">Master Produk</h2>
+  <button class="btn-primary" onclick="openProdukModal()">+ Tambah</button>
+</div>
+
+<div class="page-content">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Kode</th>
+        <th>Nama</th>
+        <th>Satuan</th>
+        <th>Harga</th>
+        <th style="width: 120px">Aksi</th>
+      </tr>
+    </thead>
+
+    <tbody id="table-produk">
+      <tr>
+        <td colspan="5" style="text-align: center">Memuat data...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MODAL PRODUK -->
+<div id="produkModal" class="modal">
+  <div class="modal-overlay" onclick="closeProdukModal()"></div>
+
+  <div class="modal-card">
+    <h3>Produk</h3>
+
+    <div class="form-group">
+      <label>Kode</label>
+      <input type="text" id="prd_kode" />
+    </div>
+
+    <div class="form-group">
+      <label>Nama</label>
+      <input type="text" id="prd_nama" />
+    </div>
+
+    <div class="form-group">
+      <label>Satuan</label>
+      <input type="text" id="prd_satuan" />
+    </div>
+
+    <div class="form-group">
+      <label>Harga Jual</label>
+      <input type="number" id="prd_harga" />
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeProdukModal()">Batal</button>
+      <button class="btn-primary" onclick="saveProduk()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div id="deleteModal" class="modal">
+  <div class="modal-overlay" onclick="closeDeleteModal()"></div>
+
+  <div class="modal-card" style="max-width: 320px">
+    <h3 style="text-align: center">Konfirmasi</h3>
+    <p style="text-align: center">Hapus data ini?</p>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeDeleteModal()">Batal</button>
+      <button class="btn-danger" onclick="confirmDeleteProduk()">Hapus</button>
+    </div>
+  </div>
+</div>

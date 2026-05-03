@@ -1,0 +1,67 @@
+<div class="page-header">
+  <h2 class="page-title">Master Sales</h2>
+  <button class="btn-primary" onclick="openSalesModal()">+ Tambah</button>
+</div>
+
+<div class="page-content">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Telp</th>
+        <th>Alamat</th>
+        <th style="width: 120px">Aksi</th>
+      </tr>
+    </thead>
+
+    <tbody id="table-sales">
+      <tr>
+        <td colspan="4" style="text-align: center">Memuat data...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MODAL SALES -->
+<div id="salesModal" class="modal">
+  <div class="modal-overlay" onclick="closeSalesModal()"></div>
+
+  <div class="modal-card">
+    <h3>Sales</h3>
+
+    <div class="form-group">
+      <label>Nama</label>
+      <input type="text" id="sales_nama" />
+    </div>
+
+    <div class="form-group">
+      <label>Telp</label>
+      <input type="text" id="sales_telp" />
+    </div>
+
+    <div class="form-group">
+      <label>Alamat</label>
+      <textarea id="sales_alamat"></textarea>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeSalesModal()">Batal</button>
+      <button class="btn-primary" onclick="saveSales()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL (pakai global style yang sama) -->
+<div id="deleteModal" class="modal">
+  <div class="modal-overlay" onclick="closeDeleteModal()"></div>
+
+  <div class="modal-card" style="max-width: 320px">
+    <h3 style="text-align: center">Konfirmasi</h3>
+    <p style="text-align: center">Hapus data ini?</p>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeDeleteModal()">Batal</button>
+      <button class="btn-danger" onclick="confirmDeleteSales()">Hapus</button>
+    </div>
+  </div>
+</div>

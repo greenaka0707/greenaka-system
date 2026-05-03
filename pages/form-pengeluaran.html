@@ -1,0 +1,56 @@
+<h2 class="page-title">Form Pengeluaran</h2>
+
+<div class="page-content">
+  <div class="form-box">
+    <div class="form-grid">
+      <!-- TANGGAL -->
+      <div class="form-group">
+        <label>Tanggal</label>
+        <input type="date" id="tgl" class="form-control" />
+      </div>
+
+      <!-- SUMBER DANA -->
+      <div class="form-group">
+        <label>Dibayar Oleh</label>
+        <select id="dibayar" class="form-control">
+          <option value="tomo">Tomo</option>
+          <option value="aris">Aris</option>
+          <option value="kas">Kas Perusahaan</option>
+          <option value="talangan">Talangan</option>
+        </select>
+      </div>
+
+      <!-- METODE -->
+      <div class="form-group">
+        <label>Metode</label>
+        <select id="metode" class="form-control">
+          <option value="cash">Cash</option>
+          <option value="transfer">Transfer</option>
+        </select>
+      </div>
+
+      <!-- PIHAK (MUNCUL JIKA TALANGAN) -->
+      <div class="form-group" id="group-pihak" style="display: none">
+        <label>Pihak</label>
+        <input type="text" id="pihak" class="form-control" placeholder="Contoh: Agus" />
+      </div>
+
+      <!-- JUMLAH -->
+      <div class="form-group">
+        <label>Jumlah</label>
+        <input type="number" id="jumlah" class="form-control" placeholder="Masukkan jumlah" />
+      </div>
+
+      <!-- KETERANGAN -->
+      <div class="form-group">
+        <label>Keterangan</label>
+        <input type="text" id="ket" class="form-control" placeholder="Contoh: Bensin / Listrik" />
+      </div>
+    </div>
+
+    <div class="form-action">
+      <button class="btn-secondary" onclick="route('pengeluaran')">Batal</button>
+      <button class="btn-primary" onclick="savePengeluaran()">Simpan</button>
+    </div>
+  </div>
+</div>

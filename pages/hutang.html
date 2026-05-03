@@ -1,0 +1,46 @@
+<h2 class="page-title">Daftar Hutang</h2>
+
+<div class="page-content">
+  <div class="form-box">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Transaksi</th>
+          <th>Total</th>
+          <th>Dibayar</th>
+          <th>Sisa</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="hutang-table"></tbody>
+    </table>
+  </div>
+</div>
+<!-- MODAL BAYAR HUTANG -->
+<div id="modal-bayar" class="modal" style="display: none">
+  <div class="modal-content" style="max-width: 400px">
+    <h3>Bayar Hutang</h3>
+
+    <div class="form-group">
+      <label>Nominal</label>
+      <input type="number" id="bayar-jumlah" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label>Dibayar Oleh</label>
+      <select id="bayar-pihak" class="form-control">
+        <option value="">-- Pilih --</option>
+        <option value="Tomo">Tomo</option>
+        <option value="Aris">Aris</option>
+        <option value="Kas">Kas</option>
+      </select>
+    </div>
+
+    <div class="form-action">
+      <button class="btn-secondary" onclick="closeModalBayar()">Batal</button>
+      <button class="btn-primary" onclick="submitBayar()">Simpan</button>
+    </div>
+  </div>
+</div>
