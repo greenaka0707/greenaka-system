@@ -1141,9 +1141,10 @@ textarea {
   /* ================= INPUT ================= */
 
   input,
-  select {
-    font-size: 16px;
-  }
+select,
+textarea {
+  font-size: 16px;
+}
 
   /* ================= ITEM ================= */
 
