@@ -1,6 +1,11 @@
 <div class="navbar">
   <!-- LEFT -->
   <div class="nav-left">
+    <!-- MOBILE TOGGLE -->
+    <button class="mobile-toggle" onclick="toggleMobileSidebar()">
+      <i data-lucide="menu"></i>
+    </button>
+
     <span class="greeting">Halo, Admin!</span>
   </div>
 
@@ -9,8 +14,8 @@
     <i data-lucide="bell"></i>
 
     <!-- AVATAR DROPDOWN -->
-    <div class="avatar-wrapper" onclick="toggleDropdown()">
-      <i data-lucide="user"></i>
+    <div class="avatar-wrapper" id="avatarWrapper">
+      <i data-lucide="user" onclick="toggleDropdown(event)"></i>
 
       <div id="dropdown-menu" class="dropdown-menu">
         <div class="dropdown-item" onclick="handleProfile()">Profile</div>
