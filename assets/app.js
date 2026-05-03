@@ -4380,3 +4380,12 @@ window.login = async function (e) {
 
   window.location.href = "index.html";
 };
+
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("APP INIT");
+
+  await loadComponent("sidebar", "components/sidebar.html");
+  await loadComponent("navbar", "components/navbar.html");
+
+  loadPage("dashboard");
+});
