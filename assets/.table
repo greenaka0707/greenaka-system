@@ -60,7 +60,9 @@ i[data-lucide] {
   background: #022c22;
   color: white;
   transition: 0.3s;
-  overflow: hidden;
+   overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
   z-index: 1000;
 }
