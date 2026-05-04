@@ -622,6 +622,8 @@ function toggleSubmenu(id, el) {
 // ====================== LOAD PAGE =====================
 // =====================================================
 function initForm() {
+  if (window.editPenjualanId) return; // 🔥 penting
+
   console.log("INIT FORM RUNNING");
 
   window.selectedCustomer = null;
@@ -635,7 +637,7 @@ function initForm() {
   if (elCustomer) elCustomer.value = "";
   if (elTelp) elTelp.value = "";
   if (elAlamat) elAlamat.value = "";
-  if (elSales) elSales.value = ""; // 🔥 penting
+  if (elSales) elSales.value = "";
 }
 async function loadPage(page) {
   const container = document.getElementById("app"); // ⬅ ganti nama (AMAN)
@@ -656,7 +658,13 @@ async function loadPage(page) {
       setTimeout(async () => {
         console.log("INIT FORM PENJUALAN");
 
-        if (typeof initForm === "function") initForm();
+        const editId = localStorage.getItem("edit_penjualan_id");
+
+        // 🔥 JIKA EDIT → JANGAN RESET
+        if (!editId && typeof initForm === "function") {
+          initForm();
+        }
+
         if (typeof loadCustomers === "function") await loadCustomers();
 
         if (typeof loadSalesPenjualan === "function") {
@@ -669,9 +677,17 @@ async function loadPage(page) {
           await loadProduk();
         }
 
-        // 🔥 TAMBAHAN STEP 2
         if (typeof loadHppProduk === "function") {
           await loadHppProduk();
+        }
+
+        // 🔥 INI YANG KAMU BELUM PUNYA
+        if (editId && typeof loadEditPenjualan === "function") {
+          console.log("LOAD EDIT:", editId);
+
+          await loadEditPenjualan(editId);
+
+          localStorage.removeItem("edit_penjualan_id");
         }
       }, 100);
     }
@@ -804,51 +820,70 @@ async function loadPage(page) {
   }
 }
 async function loadEditPenjualan(id) {
-  const { data, error } = await supabase
-    .from("penjualan")
-    .select(
-      `
-      *,
-      customers(*),
-      penjualan_detail(
+  try {
+    const { data, error } = await supabase
+      .from("penjualan")
+      .select(
+        `
         *,
-        produk:produk_id(nama)
+        customers(*),
+        penjualan_detail(
+          *,
+          produk:produk_id(nama)
+        )
+      `,
       )
-    `,
-    )
-    .eq("id", id)
-    .single();
+      .eq("id", id)
+      .single();
 
-  if (error) {
-    console.error(error);
-    return;
+    if (error) throw error;
+
+    console.log("DATA EDIT:", data);
+
+    // ================= STATE =================
+    window.editPenjualanId = id;
+
+    const customer = data.customers || {};
+    const detail = data.penjualan_detail || [];
+
+    // ================= STOP AUTO RESET =================
+    window.isEditMode = true;
+
+    // ================= CUSTOMER =================
+    const customerInput = document.getElementById("customer");
+    customerInput.value = customer.nama || "";
+
+    window.selectedCustomer = {
+      id: customer.id,
+      nama: customer.nama,
+      telp: customer.telp,
+      alamat: customer.alamat,
+    };
+
+    // ================= FIELD =================
+    document.getElementById("telp").value = customer.telp || "";
+    document.getElementById("alamat").value = customer.alamat || "";
+    document.getElementById("tanggal").value = data.tanggal || "";
+    document.getElementById("invoice").value = data.invoice || "";
+
+    // ================= CART =================
+    window.cart = detail.map((d) => ({
+      produk_id: d.produk_id,
+      produk: d.produk?.nama || "Produk",
+      qty: d.qty || 0,
+      harga: d.harga || 0,
+      satuan: "Pcs",
+    }));
+
+    renderCart();
+
+    // ================= AKTIFKAN KEMBALI =================
+    setTimeout(() => {
+      window.isEditMode = false;
+    }, 300);
+  } catch (err) {
+    console.error("EDIT ERROR:", err.message, err);
   }
-
-  console.log("EDIT DATA:", data);
-
-  // ================= SET MODE EDIT =================
-  window.editPenjualanId = id;
-
-  // ================= ISI FORM =================
-  document.getElementById("customer").value = data.customers.nama;
-  document.getElementById("telp").value = data.customers.telp;
-  document.getElementById("alamat").value = data.customers.alamat;
-  document.getElementById("tanggal").value = data.tanggal;
-  document.getElementById("invoice").value = data.invoice;
-
-  // ================= SET STATE =================
-  window.selectedCustomer = data.customers;
-
-  // ================= ISI CART =================
-  window.cart = data.penjualan_detail.map((d) => ({
-    produk_id: d.produk_id,
-    produk: d.produk?.nama || "Produk",
-    qty: d.qty,
-    harga: d.harga,
-    satuan: "Pcs",
-  }));
-
-  renderCart();
 }
 
 // =====================================================
