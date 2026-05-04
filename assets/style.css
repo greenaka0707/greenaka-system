@@ -413,6 +413,7 @@ i[data-lucide] {
 /* ===================================================== */
 /* ===================== CARDS ========================== */
 /* ===================================================== */
+/* ===== DESKTOP NORMAL ===== */
 
 /* 🔥 UPGRADE RESPONSIVE AUTO */
 .cards {
@@ -530,79 +531,71 @@ i[data-lucide] {
 /* ===================================================== */
 /* ===================== TABLE ========================== */
 /* ===================================================== */
-
-/* TABLE */
+/* ===== TABLE BASE ===== */
 .table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 14px;
 }
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+
+.table thead {
+  background: #f5f6f8;
 }
+
+.table th,
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* ===== WRAPPER SCROLL (optional per halaman) ===== */
 .table-scroll {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-.penjualan-table {
-  min-width: 680px;
-}
-
-/* CELL */
-.table th,
-.table td {
-  padding: 10px 8px;
-  font-size: 13px;
-  text-align: left;
-  vertical-align: middle;
-}
-
-/* HEADER */
-.table th {
-  font-size: 12px;
-  background: #f9fafb;
-}
-
-/* ROW */
-.table tbody tr {
-  border-top: 1px solid #eee;
-}
-
-/* TRANSAKSI CELL */
+/* ===== TEXT UTIL ===== */
 .cell-main {
   font-weight: 600;
 }
 
 .cell-sub {
-  font-size: 11px;
+  font-size: 12px;
   color: #6b7280;
 }
 
-/* TOTAL */
-.table td:nth-child(3) {
-  font-weight: 600;
-}
-
-/* ACTION */
+/* ===== ACTION ===== */
 .table-action {
   display: flex;
-  gap: 6px;
+  gap: 8px;
+  justify-content: flex-end;
+  white-space: nowrap;
 }
 
-.table-action svg {
-  width: 14px;
-  height: 14px;
+.action-btn {
+  padding: 6px;
+  border-radius: 6px;
+  background: #f3f4f6;
   cursor: pointer;
 }
 
-/* BADGE */
+.action-btn:hover {
+  background: #e5e7eb;
+}
+
+/* ===== BADGE ===== */
 .badge {
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 11px;
+  white-space: nowrap;
 }
 
 .badge.success {
@@ -614,18 +607,6 @@ i[data-lucide] {
   background: #fef3c7;
   color: #92400e;
 }
-
-.table-action {
-  display: flex;
-  gap: 8px;
-}
-
-.action-btn {
-  padding: 6px;
-  border-radius: 6px;
-  background: #f3f4f6;
-}
-
 /* ===================================================== */
 /* ===================== FORM =========================== */
 /* ===================================================== */
@@ -1057,64 +1038,45 @@ textarea {
 
 @media (max-width: 768px) {
   /* sembunyikan header tabel */
-  .mobile-clean thead {
+@media (max-width: 768px) {
+
+  .table.mobile-card thead {
     display: none;
   }
-  /* ubah row jadi card */
-  .mobile-clean tbody tr {
+
+  .table.mobile-card tbody tr {
     display: block;
     background: #fff;
-    margin-bottom: 12px;
     border-radius: 12px;
     padding: 12px;
+    margin-bottom: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   }
 
-  /* tiap kolom jadi block */
-  .mobile-clean td {
-    display: block;
-    border: none;
-    padding: 4px 0;
-  }
-
-  /* TANGGAL */
-  .mobile-clean td:nth-child(1) {
-    font-size: 12px;
-    color: #6b7280;
-  }
-
-  /* TRANSAKSI (customer + invoice) */
-  .mobile-clean td:nth-child(2) {
-    margin-top: 6px;
-  }
-
-  .cell-main {
-    font-weight: 600;
-    font-size: 14px;
-  }
-
-  .cell-sub {
-    font-size: 11px;
-    color: #6b7280;
-  }
-
-  /* TOTAL */
-  .mobile-clean td:nth-child(3) {
-    font-weight: bold;
-    margin-top: 6px;
-  }
-
-  /* STATUS */
-  .mobile-clean td:nth-child(4) {
-    margin-top: 6px;
-  }
-
-  /* AKSI */
-  .mobile-clean td:nth-child(5) {
-    margin-top: 10px;
+  .table.mobile-card td {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    padding: 6px 0;
     gap: 10px;
   }
+
+  /* label kiri */
+  .table.mobile-card td::before {
+    content: attr(data-label);
+    font-size: 11px;
+    color: #6b7280;
+    min-width: 90px;
+  }
+
+  /* value kanan */
+  .table.mobile-card td > * {
+    text-align: right;
+  }
+
+}
+  
   /* area sensitif swipe dari tepi kiri */
   #swipeZone {
     position: fixed;
@@ -1296,40 +1258,8 @@ textarea {
   }
 }
 
-.table-box {
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px;
-}
 
-.table-action {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 12px;
-}
 
-.custom-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.custom-table thead {
-  background: #f5f6f8;
-}
-
-.custom-table th,
-.custom-table td {
-  padding: 12px;
-  font-size: 14px;
-}
-
-.custom-table tbody tr {
-  border-bottom: 1px solid #eee;
-}
-
-.custom-table tbody tr:hover {
-  background: #fafafa;
-}
 
 .text-center {
   text-align: center;
