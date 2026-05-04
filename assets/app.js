@@ -109,24 +109,16 @@ async function loadPenjualan() {
   try {
     const { data, error } = await supabase
       .from("v_penjualan_status")
-      .select(
-        `
-        id,
-        invoice,
-        tanggal,
-        total,
-        dibayar,
-        sisa,
-        status
-      `,
-      )
+      .select("*") // 🔥 AMAN, TIDAK ERROR
       .order("tanggal", { ascending: false });
 
     if (error) throw error;
 
+    console.log("DATA:", data); // debug
+
     renderPenjualan(data);
   } catch (err) {
-    console.error("LOAD PENJUALAN ERROR:", err);
+    console.error("LOAD PENJUALAN ERROR:", err.message, err);
   }
 }
 function renderPenjualan(data) {
@@ -146,20 +138,23 @@ function renderPenjualan(data) {
     .map((row) => {
       const isLunas = row.status === "lunas";
 
-      // 🔥 FIX CUSTOMER (ANTI ERROR)
-      const customerNama = row.customer_nama || row.customer || row.customers?.nama || "-";
+      const customerNama = row.customer_nama || "-";
+      const tanggal = row.tanggal ? formatTanggal(row.tanggal) : "-";
+      const invoice = row.invoice || "-";
+      const total = formatRupiah(row.total || 0);
+      const sisa = formatRupiah(row.sisa || 0);
 
       return `
       <tr>
-        <td>${formatTanggal(row.tanggal)}</td>
+        <td>${tanggal}</td>
 
         <td>
           <div class="cell-main">${customerNama}</div>
-          <div class="cell-sub">${row.invoice || "-"}</div>
-          <div class="cell-sub">Sisa: ${formatRupiah(row.sisa || 0)}</div>
+          <div class="cell-sub">${invoice}</div>
+          <div class="cell-sub">Sisa: ${sisa}</div>
         </td>
 
-        <td>${formatRupiah(row.total || 0)}</td>
+        <td>${total}</td>
 
         <td>
           <span class="badge ${isLunas ? "success" : "warning"}">
@@ -169,7 +164,7 @@ function renderPenjualan(data) {
 
         <td class="table-action">
 
-          ${row.sisa > 0 ? `<span class="action-btn" onclick="bayarPiutang('${row.id}', ${row.sisa}, '${row.invoice}')">💰</span>` : ""}
+          ${row.sisa > 0 ? `<span class="action-btn" onclick="bayarPiutang('${row.id}', ${row.sisa}, '${invoice}')">💰</span>` : ""}
 
           <span class="action-btn" onclick="openInvoice('${row.id}')">
             <i data-lucide="file-text"></i>
@@ -4380,12 +4375,3 @@ window.login = async function (e) {
 
   window.location.href = "index.html";
 };
-
-document.addEventListener("DOMContentLoaded", async () => {
-  console.log("APP INIT");
-
-  await loadComponent("sidebar", "components/sidebar.html");
-  await loadComponent("navbar", "components/navbar.html");
-
-  loadPage("dashboard");
-});
