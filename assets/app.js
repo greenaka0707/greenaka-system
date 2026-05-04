@@ -145,40 +145,55 @@ function renderPenjualan(data) {
       const sisa = formatRupiah(row.sisa || 0);
 
       return `
-      <tr>
-        <td>${tanggal}</td>
+      <tr class="row-penjualan">
 
-        <td>
+        <!-- TANGGAL -->
+        <td class="col-tanggal">
+          ${tanggal}
+        </td>
+
+        <!-- TRANSAKSI -->
+        <td class="col-transaksi">
           <div class="cell-main">${customerNama}</div>
           <div class="cell-sub">${invoice}</div>
           <div class="cell-sub">Sisa: ${sisa}</div>
         </td>
 
-        <td>${total}</td>
+        <!-- TOTAL -->
+        <td class="col-total">
+          ${total}
+        </td>
 
-        <td>
+        <!-- STATUS -->
+        <td class="col-status">
           <span class="badge ${isLunas ? "success" : "warning"}">
             ${isLunas ? "lunas" : "kredit"}
           </span>
         </td>
 
-        <td class="table-action">
+        <!-- AKSI -->
+        <td class="col-aksi">
+          <div class="table-action">
 
-          ${row.sisa > 0 ? `<span class="action-btn" onclick="bayarPiutang('${row.id}', ${row.sisa}, '${invoice}')">💰</span>` : ""}
+            ${row.sisa > 0 ? `
+              <span class="action-btn" onclick="bayarPiutang('${row.id}', ${row.sisa}, '${invoice}')">💰</span>
+            ` : ""}
 
-          <span class="action-btn" onclick="openInvoice('${row.id}')">
-            <i data-lucide="file-text"></i>
-          </span>
+            <span class="action-btn" onclick="openInvoice('${row.id}')">
+              <i data-lucide="file-text"></i>
+            </span>
 
-          <span class="action-btn" onclick="editPenjualan('${row.id}')">
-            <i data-lucide="pencil"></i>
-          </span>
+            <span class="action-btn" onclick="editPenjualan('${row.id}')">
+              <i data-lucide="pencil"></i>
+            </span>
 
-          <span class="action-btn" onclick="deletePenjualan('${row.id}')">
-            <i data-lucide="trash-2"></i>
-          </span>
+            <span class="action-btn" onclick="deletePenjualan('${row.id}')">
+              <i data-lucide="trash-2"></i>
+            </span>
 
+          </div>
         </td>
+
       </tr>
     `;
     })
