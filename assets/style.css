@@ -1048,6 +1048,65 @@ textarea {
 }
 
 @media (max-width: 768px) {
+  /* sembunyikan header tabel */
+  .mobile-clean thead {
+    display: none;
+  }
+  /* ubah row jadi card */
+  .mobile-clean tbody tr {
+    display: block;
+    background: #fff;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  /* tiap kolom jadi block */
+  .mobile-clean td {
+    display: block;
+    border: none;
+    padding: 4px 0;
+  }
+
+  /* TANGGAL */
+  .mobile-clean td:nth-child(1) {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  /* TRANSAKSI (customer + invoice) */
+  .mobile-clean td:nth-child(2) {
+    margin-top: 6px;
+  }
+
+  .cell-main {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .cell-sub {
+    font-size: 11px;
+    color: #6b7280;
+  }
+
+  /* TOTAL */
+  .mobile-clean td:nth-child(3) {
+    font-weight: bold;
+    margin-top: 6px;
+  }
+
+  /* STATUS */
+  .mobile-clean td:nth-child(4) {
+    margin-top: 6px;
+  }
+
+  /* AKSI */
+  .mobile-clean td:nth-child(5) {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+  }
   /* area sensitif swipe dari tepi kiri */
   #swipeZone {
     position: fixed;
