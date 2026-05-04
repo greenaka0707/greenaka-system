@@ -24,61 +24,6 @@
       <span class="menu-text">Dashboard</span>
     </li>
 
-    <!-- LAPORAN -->
-    <li class="menu-parent" onclick="toggleSubmenu('laporan-menu', this)">
-      <div class="menu-left">
-        <i data-lucide="file-bar-chart"></i>
-        <span class="menu-text">Laporan</span>
-      </div>
-      <i data-lucide="chevron-down" class="arrow"></i>
-    </li>
-
-    <ul class="submenu" id="laporan-menu">
-      <li
-        onclick="
-          route('persediaan');
-          closeMobileSidebar();
-        "
-        data-page="persediaan"
-      >
-        <i data-lucide="database"></i>
-        <span class="menu-text">Persediaan</span>
-      </li>
-
-      <li
-        onclick="
-          route('analisa-margin');
-          closeMobileSidebar();
-        "
-        data-page="analisa-margin"
-      >
-        <i data-lucide="trending-up"></i>
-        <span class="menu-text">Analisa Margin</span>
-      </li>
-
-      <li
-        onclick="
-          route('hutang');
-          closeMobileSidebar();
-        "
-        data-page="hutang"
-      >
-        <i data-lucide="credit-card"></i>
-        <span class="menu-text">Hutang</span>
-      </li>
-
-      <li
-        onclick="
-          route('piutang');
-          closeMobileSidebar();
-        "
-        data-page="piutang"
-      >
-        <i data-lucide="wallet"></i>
-        <span class="menu-text">Piutang</span>
-      </li>
-    </ul>
-
     <!-- PENJUALAN -->
     <li
       onclick="
@@ -211,6 +156,61 @@
       >
         <i data-lucide="clipboard-list"></i>
         <span class="menu-text">Kartu Stok</span>
+      </li>
+    </ul>
+
+    <!-- LAPORAN -->
+    <li class="menu-parent" onclick="toggleSubmenu('laporan-menu', this)">
+      <div class="menu-left">
+        <i data-lucide="file-bar-chart"></i>
+        <span class="menu-text">Laporan</span>
+      </div>
+      <i data-lucide="chevron-down" class="arrow"></i>
+    </li>
+
+    <ul class="submenu" id="laporan-menu">
+      <li
+        onclick="
+          route('persediaan');
+          closeMobileSidebar();
+        "
+        data-page="persediaan"
+      >
+        <i data-lucide="database"></i>
+        <span class="menu-text">Persediaan</span>
+      </li>
+
+      <li
+        onclick="
+          route('analisa-margin');
+          closeMobileSidebar();
+        "
+        data-page="analisa-margin"
+      >
+        <i data-lucide="trending-up"></i>
+        <span class="menu-text">Analisa Margin</span>
+      </li>
+
+      <li
+        onclick="
+          route('hutang');
+          closeMobileSidebar();
+        "
+        data-page="hutang"
+      >
+        <i data-lucide="credit-card"></i>
+        <span class="menu-text">Hutang</span>
+      </li>
+
+      <li
+        onclick="
+          route('piutang');
+          closeMobileSidebar();
+        "
+        data-page="piutang"
+      >
+        <i data-lucide="wallet"></i>
+        <span class="menu-text">Piutang</span>
       </li>
     </ul>
     <!-- KAS / BANK (BARU) -->
