@@ -541,6 +541,15 @@ i[data-lucide] {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.penjualan-table {
+  min-width: 680px;
+}
 
 /* CELL */
 .table th,
