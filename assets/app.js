@@ -4597,13 +4597,104 @@ function closeModalAdjustment(){
     ?.classList.remove("show")
 
 }
+let PRODUK_ADJUSTMENT = []
+
+async function loadProdukAdjustment() {
+
+  const { data, error } = await supabase
+    .from("produk")
+    .select("id,kode,nama")
+    .order("kode")
+
+  if(error){
+    console.error(error)
+    return
+  }
+
+  PRODUK_ADJUSTMENT = data || []
+
+}
+
+function searchProdukAdjustment(keyword){
+
+  const dropdown = document.getElementById(
+    "adj-produk-dropdown"
+  )
+
+  if(!keyword){
+
+    dropdown.innerHTML = ""
+
+    return
+  }
+
+  const results = PRODUK_ADJUSTMENT.filter(item => {
+
+    const text =
+      `${item.kode} ${item.nama}`.toLowerCase()
+
+    return text.includes(
+      keyword.toLowerCase()
+    )
+
+  })
+
+  if(results.length === 0){
+
+    dropdown.innerHTML = `
+      <div class="dropdown-item">
+        Tidak ditemukan
+      </div>
+    `
+
+    return
+  }
+
+  dropdown.innerHTML = results.map(item => `
+
+    <div
+      class="dropdown-item"
+      onclick="
+        pilihProdukAdjustment(
+          '${item.id}',
+          '${item.kode}',
+          '${item.nama}'
+        )
+      "
+    >
+      ${item.kode} - ${item.nama}
+    </div>
+
+  `).join("")
+
+}
+
+function pilihProdukAdjustment(
+  id,
+  kode,
+  nama
+){
+
+  document.getElementById(
+    "adj-produk-id"
+  ).value = id
+
+  document.getElementById(
+    "adj-produk"
+  ).value = `${kode} - ${nama}`
+
+  document.getElementById(
+    "adj-produk-dropdown"
+  ).innerHTML = ""
+
+}
 
 // ================= SAVE =================
 
 async function simpanAdjustment(){
 
   const produk_id =
-    document.getElementById("adj-produk").value
+  document.getElementById("adj-produk-id").value
 
   const tipe =
     document.getElementById("adj-tipe").value
@@ -4672,3 +4763,4 @@ const { error } = await supabase
 
 loadAdjustment()
 loadProdukAdjustment()
+
