@@ -1,0 +1,339 @@
+<div class="page-header">
+  <h2 class="page-title">Penyesuaian Stok</h2>
+
+  <button class="btn-primary" onclick="openModalAdjustment()">
+    + Penyesuaian
+  </button>
+</div>
+
+<div class="page-content">
+
+  <div class="table-scroll">
+    <table class="table mobile-card">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>No Ref</th>
+          <th>Produk</th>
+          <th>Tipe</th>
+          <th>Qty</th>
+          <th>Keterangan</th>
+        </tr>
+      </thead>
+
+      <tbody id="table-adjustment-body">
+        <tr>
+          <td colspan="6" class="text-center" style="padding:20px">
+            Memuat data...
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ================= MODAL ================= -->
+<div id="modal-adjustment" class="modal">
+  <div class="modal-overlay" onclick="closeModalAdjustment()"></div>
+
+  <div class="modal-card">
+
+    <div class="modal-header">
+      <h3>Penyesuaian Stok</h3>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label>Produk</label>
+
+        <select id="adj-produk" class="input">
+          <option value="">Pilih Produk</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Tipe</label>
+
+        <select id="adj-tipe" class="input">
+          <option value="MASUK">MASUK</option>
+          <option value="KELUAR">KELUAR</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Qty</label>
+
+        <input
+          type="number"
+          id="adj-qty"
+          class="input"
+          placeholder="0"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Harga</label>
+
+        <input
+          type="number"
+          id="adj-harga"
+          class="input"
+          value="0"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Keterangan</label>
+
+        <textarea
+          id="adj-keterangan"
+          class="input"
+          rows="3"
+          placeholder="Keterangan..."
+        ></textarea>
+      </div>
+
+    </div>
+
+    <div
+      class="modal-footer"
+      style="display:flex; gap:10px"
+    >
+      <button
+        class="btn-secondary"
+        onclick="closeModalAdjustment()"
+      >
+        Batal
+      </button>
+
+      <button
+        class="btn-primary"
+        onclick="simpanAdjustment()"
+      >
+        Simpan
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+let DATA_ADJUSTMENT = []
+
+async function loadAdjustment() {
+
+  const tbody = document.getElementById(
+    "table-adjustment-body"
+  )
+
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="6" class="text-center">
+        Memuat...
+      </td>
+    </tr>
+  `
+
+  const { data, error } = await db
+    .from("v_stok_adjustment")
+    .select("*")
+    .order("tanggal", { ascending:false })
+
+  if(error){
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" class="text-center">
+          ${error.message}
+        </td>
+      </tr>
+    `
+
+    return
+  }
+
+  DATA_ADJUSTMENT = data || []
+
+  renderAdjustment()
+
+}
+
+function renderAdjustment() {
+
+  const tbody = document.getElementById(
+    "table-adjustment-body"
+  )
+
+  if(DATA_ADJUSTMENT.length === 0){
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" class="text-center">
+          Belum ada data
+        </td>
+      </tr>
+    `
+
+    return
+  }
+
+  tbody.innerHTML = ""
+
+  DATA_ADJUSTMENT.forEach(item => {
+
+    tbody.innerHTML += `
+      <tr>
+
+        <td>
+          ${formatDate(item.tanggal)}
+        </td>
+
+        <td>
+          ${item.no_ref}
+        </td>
+
+        <td>
+          ${item.nama_produk}
+        </td>
+
+        <td>
+          <span class="${
+            item.tipe === 'MASUK'
+            ? 'badge-success'
+            : 'badge-danger'
+          }">
+            ${item.tipe}
+          </span>
+        </td>
+
+        <td>
+          ${item.qty}
+        </td>
+
+        <td>
+          ${item.keterangan || '-'}
+        </td>
+
+      </tr>
+    `
+
+  })
+
+}
+
+async function loadProdukAdjustment() {
+
+  const { data, error } = await db
+    .from("produk")
+    .select("id,kode,nama")
+    .order("nama")
+
+  if(error){
+    alert(error.message)
+    return
+  }
+
+  const el = document.getElementById(
+    "adj-produk"
+  )
+
+  el.innerHTML = `
+    <option value="">
+      Pilih Produk
+    </option>
+  `
+
+  data.forEach(item => {
+
+    el.innerHTML += `
+      <option value="${item.id}">
+        ${item.kode} - ${item.nama}
+      </option>
+    `
+
+  })
+
+}
+
+function openModalAdjustment(){
+
+  document
+    .getElementById("modal-adjustment")
+    .classList.add("show")
+
+}
+
+function closeModalAdjustment(){
+
+  document
+    .getElementById("modal-adjustment")
+    .classList.remove("show")
+
+}
+
+async function simpanAdjustment(){
+
+  const produk_id =
+    document.getElementById("adj-produk").value
+
+  const tipe =
+    document.getElementById("adj-tipe").value
+
+  const qty = Number(
+    document.getElementById("adj-qty").value
+  )
+
+  const harga = Number(
+    document.getElementById("adj-harga").value
+  )
+
+  const keterangan =
+    document.getElementById("adj-keterangan").value
+
+  if(!produk_id){
+    alert("Produk wajib dipilih")
+    return
+  }
+
+  if(!qty || qty <= 0){
+    alert("Qty tidak valid")
+    return
+  }
+
+  const no_ref = "ADJ-" + Date.now()
+
+  const { error } = await db
+    .from("stok_adjustment")
+    .insert([{
+      no_ref,
+      produk_id,
+      tipe,
+      qty,
+      harga,
+      keterangan
+    }])
+
+  if(error){
+    alert(error.message)
+    return
+  }
+
+  alert("Berhasil disimpan")
+
+  closeModalAdjustment()
+
+  document.getElementById("adj-qty").value = ""
+  document.getElementById("adj-harga").value = 0
+  document.getElementById("adj-keterangan").value = ""
+
+  loadAdjustment()
+
+}
+
+loadAdjustment()
+loadProdukAdjustment()
+
+</script>
