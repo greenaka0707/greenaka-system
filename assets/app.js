@@ -4627,18 +4627,22 @@ async function simpanAdjustment(){
     return alert("Qty tidak valid")
   }
 
-  const no_ref = "ADJ-" + Date.now()
+  const tanggal =
+  document.getElementById("adj-tanggal").value
 
-  const { error } = await supabase
-    .from("stok_adjustment")
-    .insert([{
-      no_ref,
-      produk_id,
-      tipe,
-      qty,
-      harga,
-      keterangan
-    }])
+const no_ref = "ADJ-" + Date.now()
+
+const { error } = await supabase
+  .from("stok_adjustment")
+  .insert([{
+    tanggal,
+    no_ref,
+    produk_id,
+    tipe,
+    qty,
+    harga,
+    keterangan
+  }])
 
   if(error){
 
