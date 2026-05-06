@@ -830,6 +830,10 @@ async function loadPage(page) {
     if (page === "kas") {
       setTimeout(loadKas, 50);
     }
+    if (page === "penyesuaian-stok") {
+  await loadAdjustment()
+  await loadProdukAdjustment()
+}
   } catch (err) {
     container.innerHTML = "<h3>Page tidak ditemukan</h3>";
     console.error(err);
