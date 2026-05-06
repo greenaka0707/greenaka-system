@@ -4431,13 +4431,19 @@ window.login = async function (e) {
   window.location.href = "index.html";
 };
 
+// ================= GLOBAL =================
+
 let DATA_ADJUSTMENT = []
+
+// ================= LOAD DATA =================
 
 async function loadAdjustment() {
 
   const tbody = document.getElementById(
     "table-adjustment-body"
   )
+
+  if (!tbody) return
 
   tbody.innerHTML = `
     <tr>
@@ -4447,17 +4453,19 @@ async function loadAdjustment() {
     </tr>
   `
 
-  const { data, error } = await db
+  const { data, error } = await supabase
     .from("v_stok_adjustment")
     .select("*")
     .order("tanggal", { ascending:false })
 
   if(error){
 
+    console.error(error)
+
     tbody.innerHTML = `
       <tr>
         <td colspan="6" class="text-center">
-          ${error.message}
+          Gagal load data
         </td>
       </tr>
     `
@@ -4471,11 +4479,15 @@ async function loadAdjustment() {
 
 }
 
+// ================= RENDER =================
+
 function renderAdjustment() {
 
   const tbody = document.getElementById(
     "table-adjustment-body"
   )
+
+  if (!tbody) return
 
   if(DATA_ADJUSTMENT.length === 0){
 
@@ -4490,65 +4502,65 @@ function renderAdjustment() {
     return
   }
 
-  tbody.innerHTML = ""
+  tbody.innerHTML = DATA_ADJUSTMENT.map(item => `
 
-  DATA_ADJUSTMENT.forEach(item => {
+    <tr>
 
-    tbody.innerHTML += `
-      <tr>
+      <td>
+        ${formatTanggal(item.tanggal)}
+      </td>
 
-        <td>
-          ${formatDate(item.tanggal)}
-        </td>
+      <td>
+        ${item.no_ref}
+      </td>
 
-        <td>
-          ${item.no_ref}
-        </td>
+      <td>
+        ${item.nama_produk}
+      </td>
 
-        <td>
-          ${item.nama_produk}
-        </td>
+      <td>
+        <span class="badge ${
+          item.tipe === "MASUK"
+          ? "success"
+          : "danger"
+        }">
+          ${item.tipe}
+        </span>
+      </td>
 
-        <td>
-          <span class="${
-            item.tipe === 'MASUK'
-            ? 'badge-success'
-            : 'badge-danger'
-          }">
-            ${item.tipe}
-          </span>
-        </td>
+      <td>
+        ${item.qty}
+      </td>
 
-        <td>
-          ${item.qty}
-        </td>
+      <td>
+        ${item.keterangan || "-"}
+      </td>
 
-        <td>
-          ${item.keterangan || '-'}
-        </td>
+    </tr>
 
-      </tr>
-    `
-
-  })
+  `).join("")
 
 }
 
+// ================= LOAD PRODUK =================
+
 async function loadProdukAdjustment() {
 
-  const { data, error } = await db
+  const { data, error } = await supabase
     .from("produk")
     .select("id,kode,nama")
     .order("nama")
 
   if(error){
-    alert(error.message)
+    console.error(error)
     return
   }
 
   const el = document.getElementById(
     "adj-produk"
   )
+
+  if (!el) return
 
   el.innerHTML = `
     <option value="">
@@ -4568,11 +4580,13 @@ async function loadProdukAdjustment() {
 
 }
 
+// ================= MODAL =================
+
 function openModalAdjustment(){
 
   document
     .getElementById("modal-adjustment")
-    .classList.add("show")
+    ?.classList.add("show")
 
 }
 
@@ -4580,9 +4594,11 @@ function closeModalAdjustment(){
 
   document
     .getElementById("modal-adjustment")
-    .classList.remove("show")
+    ?.classList.remove("show")
 
 }
+
+// ================= SAVE =================
 
 async function simpanAdjustment(){
 
@@ -4604,18 +4620,16 @@ async function simpanAdjustment(){
     document.getElementById("adj-keterangan").value
 
   if(!produk_id){
-    alert("Produk wajib dipilih")
-    return
+    return alert("Produk wajib dipilih")
   }
 
   if(!qty || qty <= 0){
-    alert("Qty tidak valid")
-    return
+    return alert("Qty tidak valid")
   }
 
   const no_ref = "ADJ-" + Date.now()
 
-  const { error } = await db
+  const { error } = await supabase
     .from("stok_adjustment")
     .insert([{
       no_ref,
@@ -4627,11 +4641,12 @@ async function simpanAdjustment(){
     }])
 
   if(error){
-    alert(error.message)
-    return
-  }
 
-  alert("Berhasil disimpan")
+    console.error(error)
+
+    return alert(error.message)
+
+  }
 
   closeModalAdjustment()
 
@@ -4639,9 +4654,17 @@ async function simpanAdjustment(){
   document.getElementById("adj-harga").value = 0
   document.getElementById("adj-keterangan").value = ""
 
-  loadAdjustment()
+  await loadAdjustment()
+
+  if(typeof showToast === "function"){
+    showToast("Penyesuaian berhasil disimpan")
+  } else {
+    alert("Penyesuaian berhasil disimpan")
+  }
 
 }
+
+// ================= INIT =================
 
 loadAdjustment()
 loadProdukAdjustment()
