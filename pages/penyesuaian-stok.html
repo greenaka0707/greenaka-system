@@ -55,12 +55,27 @@
 </div>
       
       <div class="form-group">
-        <label>Produk</label>
+  <label>Produk</label>
 
-        <select id="adj-produk" class="input">
-          <option value="">Pilih Produk</option>
-        </select>
-      </div>
+  <input
+    type="hidden"
+    id="adj-produk-id"
+  />
+
+  <input
+    type="text"
+    id="adj-produk"
+    class="input"
+    placeholder="Cari produk..."
+    autocomplete="off"
+    oninput="searchProdukAdjustment(this.value)"
+  />
+
+  <div
+    id="adj-produk-dropdown"
+    class="dropdown-list"
+  ></div>
+</div>
 
       <div class="form-group">
         <label>Tipe</label>
