@@ -41,6 +41,7 @@ let currentHutangId = null;
 let currentMaxSisa = 0;
 let currentRefNo = null;
 
+
 // ===== BRIDGE (biar kode lama tetap jalan) =====
 Object.defineProperties(window, {
   customers: {
@@ -4425,3 +4426,218 @@ window.login = async function (e) {
 
   window.location.href = "index.html";
 };
+
+let DATA_ADJUSTMENT = []
+
+async function loadAdjustment() {
+
+  const tbody = document.getElementById(
+    "table-adjustment-body"
+  )
+
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="6" class="text-center">
+        Memuat...
+      </td>
+    </tr>
+  `
+
+  const { data, error } = await db
+    .from("v_stok_adjustment")
+    .select("*")
+    .order("tanggal", { ascending:false })
+
+  if(error){
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" class="text-center">
+          ${error.message}
+        </td>
+      </tr>
+    `
+
+    return
+  }
+
+  DATA_ADJUSTMENT = data || []
+
+  renderAdjustment()
+
+}
+
+function renderAdjustment() {
+
+  const tbody = document.getElementById(
+    "table-adjustment-body"
+  )
+
+  if(DATA_ADJUSTMENT.length === 0){
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" class="text-center">
+          Belum ada data
+        </td>
+      </tr>
+    `
+
+    return
+  }
+
+  tbody.innerHTML = ""
+
+  DATA_ADJUSTMENT.forEach(item => {
+
+    tbody.innerHTML += `
+      <tr>
+
+        <td>
+          ${formatDate(item.tanggal)}
+        </td>
+
+        <td>
+          ${item.no_ref}
+        </td>
+
+        <td>
+          ${item.nama_produk}
+        </td>
+
+        <td>
+          <span class="${
+            item.tipe === 'MASUK'
+            ? 'badge-success'
+            : 'badge-danger'
+          }">
+            ${item.tipe}
+          </span>
+        </td>
+
+        <td>
+          ${item.qty}
+        </td>
+
+        <td>
+          ${item.keterangan || '-'}
+        </td>
+
+      </tr>
+    `
+
+  })
+
+}
+
+async function loadProdukAdjustment() {
+
+  const { data, error } = await db
+    .from("produk")
+    .select("id,kode,nama")
+    .order("nama")
+
+  if(error){
+    alert(error.message)
+    return
+  }
+
+  const el = document.getElementById(
+    "adj-produk"
+  )
+
+  el.innerHTML = `
+    <option value="">
+      Pilih Produk
+    </option>
+  `
+
+  data.forEach(item => {
+
+    el.innerHTML += `
+      <option value="${item.id}">
+        ${item.kode} - ${item.nama}
+      </option>
+    `
+
+  })
+
+}
+
+function openModalAdjustment(){
+
+  document
+    .getElementById("modal-adjustment")
+    .classList.add("show")
+
+}
+
+function closeModalAdjustment(){
+
+  document
+    .getElementById("modal-adjustment")
+    .classList.remove("show")
+
+}
+
+async function simpanAdjustment(){
+
+  const produk_id =
+    document.getElementById("adj-produk").value
+
+  const tipe =
+    document.getElementById("adj-tipe").value
+
+  const qty = Number(
+    document.getElementById("adj-qty").value
+  )
+
+  const harga = Number(
+    document.getElementById("adj-harga").value
+  )
+
+  const keterangan =
+    document.getElementById("adj-keterangan").value
+
+  if(!produk_id){
+    alert("Produk wajib dipilih")
+    return
+  }
+
+  if(!qty || qty <= 0){
+    alert("Qty tidak valid")
+    return
+  }
+
+  const no_ref = "ADJ-" + Date.now()
+
+  const { error } = await db
+    .from("stok_adjustment")
+    .insert([{
+      no_ref,
+      produk_id,
+      tipe,
+      qty,
+      harga,
+      keterangan
+    }])
+
+  if(error){
+    alert(error.message)
+    return
+  }
+
+  alert("Berhasil disimpan")
+
+  closeModalAdjustment()
+
+  document.getElementById("adj-qty").value = ""
+  document.getElementById("adj-harga").value = 0
+  document.getElementById("adj-keterangan").value = ""
+
+  loadAdjustment()
+
+}
+
+loadAdjustment()
+loadProdukAdjustment()
